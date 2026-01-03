@@ -1,0 +1,31 @@
+# Ignorer les fichiers auxiliaires LaTeX
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+*.ilg
+*.ind
+*.idx
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.dvi
+*.ps
+*.pdfsync
+*.spl
+
+# Dossiers générés (ex. minted)
+_minted-*/
+build/

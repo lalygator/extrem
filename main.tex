@@ -31,8 +31,16 @@
 %% \documentclass[final,5p,times,authoryear]{elsarticle}
 \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
 
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+    {0.7em}% \@plus1ex \@minus.2ex}% before-skip
+    {-0.5em}% after-skip: change this to the distance below the heading
+    {\normalfont\normalsize\itshape}}
+\makeatother
+
+
 \setlength{\parindent}{1em}
-\setlength{\parskip}{0.2em}
+\setlength{\parskip}{0em}
 
 %% For including figures, graphicx.sty has been loaded in
 %% elsarticle.cls. If you prefer to use the old commands
@@ -42,9 +50,10 @@
 \usepackage{amssymb}
 \usepackage{lipsum}
 %% The amsthm package provides extended theorem environments
+\usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{hyperref}
-
+\usepackage{float}
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers.
@@ -53,8 +62,11 @@
 %% You might want to define your own abbreviated commands for common used terms, e.g.:
 \newcommand{\kms}{km\,s$^{-1}$}
 \newcommand{\msun}{$M_\odot$}
-\newcommand{\g}{g}
-\newcommand{\cm}{cm}
+\newcommand{\kev}{\text{keV}}
+\newcommand{\g}{\text{g}}
+\newcommand{\cm}{\text{cm}}
+
+%\newcommand{\cm}{cm}
 
 
 %\journal{Annals of Physics}
@@ -194,13 +206,14 @@ Ever since their discovery in 1967 by Jocelyn Bell \citep{hewish_observation_196
 %Pourquoi l’émission X des pulsars isolés reste énigmatique.
 % * La problematique
 
-While multplies possible explanation of X-ray luminosity from binary pulsars has been made, that for isolated pulsars, is still very unclear. A possible explanation for their X-ray luminosity properties is thought to be correlated to their rotational properties, and more specifically their spin down power, $\dot E$. This correlation has been throughly studied since 1988 \citep{seward_pulsars_1988}, and continue to be studied, with the amount and precision of the data exponantially growing each year.
+While multiples possible explanation of X-ray luminosity from binary pulsars has been made, that for isolated pulsars, is still very unclear. A possible explanation for their X-ray luminosity properties is thought to be correlated to their rotational properties, and more specifically their spin down power, $\dot E$. This correlation has been throughly studied since 1988 \citep{seward_pulsars_1988}, and continue to be studied, with the amount and precision of the data exponantially growing each year.
 
 % * Le problème spécifique qu'on va traiter au prochain semestre
 % Bien que plusieurs études aient exploré la relation entre la puissance de freinage (spin-down power) et l’émission X chez les pulsars en général, peu se sont concentrées sur les pulsars isolés. Ce manque limite notre compréhension de l’origine de l’émission X dans cette population spécifique.
 % ! c'est la phrase de maica, faut la réecrire
+But while many studies of this correlation have been made on pulsars, few have been focused on isolated pulsars, which limit our understanding for this specific population.
 
-While many models obtained from studying this correlation have been proposed to explain this phenomena, few have focused their study on isolated pulsars, which limit our understanding for this specific population.
+%While many models obtained from studyingthis correlation have been proposed to explain this phenomena, few have focused their study on isolated pulsars, which limit our understanding for this specific population.
 % and most of the work needs to be updated. Here, we try to present some models developed up to date, and how starting from them we wish to pursue their work.
 
 % ! celle ci est toujours assez inspiré..
@@ -221,11 +234,17 @@ In the second section, we present pulsar and their pertinent parameters and pres
 \section{Presentation of the subject}
 % TODO bien expliquer pourquoi on étudie les pulsars en particulier et pourquoi on en exclut certains de cette étude
 
-We start off by defining the categories of pulsars we will be working with for this study. Here, we focus exclusively on rotation powererd pulsar (RPPs) where rotational energy is the dominant source of X-ray emission. We exclude magnetars (AXPs and SGRs), as their X-ray properties are not linked to rotational activities. We also concentrate on isolated pulsars specificaly, which is not enough studied.
+We start off by defining the properties of pulsars, and the categories of pulsars we will be working with for this study. 
 
-We also point out that our study include isolated MSPs, which consist of ?? \% of known MSPs (source). We precise this fact as the existence of isolated MSPs is itself surprising (source, potentiellemtn [Lee et al., 2018]).
+\subsection{Population of pulsar studied}
+Here, we focus exclusively on rotation-powered pulsar (RPPs) where rotational energy is the dominant source of X-ray emission. They consist of 90\% of the pulsars populations \citep{xu_new_2025}. We exclude magnetars (Anomalous X-rays Pulsars (AXPs) and Soft Gamma Repeaters (SGRs)), as their X-ray properties are not linked to rotational activities, and also implicitely exclude accretion-powered pulsars, as they are only found in binary systems. More specifically, we will focus on isolated pulsars specificaly, whose population have not been througly studied recently.
 
-Below, we define the parameters with which we will work with.
+We also point out that our study include isolated MSPs, which consist of around 30\% of known milliseconds pulsars \citep{manchester_australia_2005}.% We precise this fact, as the existence of isolated MSPs was itself surprising, and were initially thought to be formed through binary system \citep{lee_x-ray_2018}.
+% TODO Expliquer la distinction entre thermal et non-thermal emission, comme c'est disitngué dasn les études
+
+% TODO Trouver une bonne manière d'expliquer pourquoi on précise qu'on considère les MSP isolés dans notre étude.
+
+Next, we define the parameters with which we will work with.
 
 % ! - les cadres theoriques  et/ou expérimental et/ou numérique utilisés  avec, si possible, l’énoncé des hypothèses qui ont amené à definir ces  cadres (equations à resoudre ou experience à mener ou analyses  numeriques a faire)
 
@@ -239,117 +258,205 @@ Below, we define the parameters with which we will work with.
 
 From the many physical properties of pulsars, we define those of which we need :
 
-\paragraph{Period $P$}
+\paragraph{Period $P$} A pulsar period corresponds to its \textsl{rotation period} along its axis, and ranges from second (normal pulsars) up to millisecond (millisecond pulsars, called MSPs). Its rotation axis is not necessarely aligned to its magnetic axis, which results in the observed pulsed emission. It is measured from radio observations. It stability makes it a very interesting tool for high-precision measurement, comparable to that of atomic clocks.
 
-\paragraph{Spin-down rate $\dot P$ :} Representing the rate at which a pulsars pulse decrease, it is generally very slow, but it is it which provides energy to generate electromagnetic waves.
+%\paragraph{Period $P$}
+%The pulsar period corresponds to its \textsl{rotation period} about its axis and ranges from seconds for normal pulsars down to milliseconds for millisecond pulsars (MSPs). The rotation axis is not necessarily aligned with the magnetic axis, which causes the observed pulsed emission.
 
-\paragraph{Intrinsic X-ray luminosity $L_X$} Defined as $L_X=4\pi d^2 f_x$ with $d$ the distance between the observer and the pulsar, and $f_x$ the x-ray flux mesured for a specific bandwidth. Depending on the catalog used, ROSAT : 0.1–2 keV, ASCA : 0.4–10 keV, XMM‑Newton : 0.2–12 keV,  Chandra : (0.110 keV) %(en erg·cm⁻²·s⁻¹)
-%ROSAT (0.1–2 keV)
-% ASCA (0.4–10 keV)
-% XMM–Newton (0.2–12 keV)
-% Chandra (0.110 keV)
 
-%The energy fluxes fx within the 0.1-2.4 keV band have been converted to isotropic luminosities using Lx = 4πd2fx
+\paragraph{Spin-down rate $\dot P$} %Contrarely to what was thought during its discovery, pulsar period are not perfectly constant; 
+It is the rate at which they decrease, and is generally very slow, it is this decay which provides the energy to generate electromagnetic waves. Similarly to the period $P$, it is measured from radio observations%MSP have particularly slow decay-rate, which make them very reliable tools to derive pulsars positions.
 
-\paragraph{Spin-down power $\dot E$} Also refered as spin-down luminosity, rotational loss etc.... It is defined as $\dot E = 4\pi^2 I \dot P/ P^3 $ with I the NS momentum of inertia, typically assumed in the literature as $I = 10^{45} \g  \:\cm ^2$.
+%used by astronomers as clocks rivaling the stability of the best atomic clocks on Earth. 
 
-\paragraph{Dispersion measurement (DM)} lalala faut expliquer c'est quoi et a quoi ça sert
+\paragraph{Intrinsic X-ray luminosity $L_X$} It is defined as $L_X=4\pi d^2 f_x$, with $d$ the distance between the observer and the pulsar, and $f_x$ the x-ray flux mesured for a specific bandwidth. Depending on the catalog used, the measured flux can be from different energy band. We list below the principal X-ray missions, and their energy band : 
+%ROSAT (1990-1999) : 0.1–2 keV, ASCA (1993-2001) : 0.4–10 keV, XMM-Newton (1999): 0.1–12 keV,  Chandra (1999) : 0.1 - 10 keV. 
+\begin{table}[H]
+    \centering
+    \caption{Main X-ray missions and corresponding energy bands}
+    \label{tab:xray-missions}
+    \begin{tabular}{l c c}
+        \hline
+        Mission & Operating period & Energy band (keV) \\
+        \hline
+        ROSAT      & 1990--1999       & 0.1--2    \\
+        ASCA       & 1993--2001       & 0.4--10   \\
+        XMM-Newton & 1999--ongoing    & 0.1--12   \\
+        Chandra    & 1999--ongoing    & 0.1--10   \\
+        \hline
+    \end{tabular}
+\end{table}
+We distinguish inside the X-ray band the hard X-ray band ($> 2\:\kev$) and the soft X-ray band ($<2\: \kev$).%
+
+
+\paragraph{Spin-down power $\dot E$} Also refered as spin-down luminosity, rotational luminosity, bracking energy, or rate of loss of rotational energy, it is defined as $dE/dt = 4\pi^2 I \dot P/ P^3 $ with I the pulsar momentum of inertia, typically assumed in the literature as $I = 10^{45} \g  \:\cm ^2$. We note that while some distinguish $\dot E$ from the spin-down $L_{sd}$ as $\dot E = -L_{sd}$ \citep{enoto_observational_2019}, some also choose to consider it the same : $\dot E = L_{sd}$ \citep{possenti_re-examining_2002}, \citep{shibata_x-ray_2016}.
+% TODO Verifier quels articles considère que c'est pareil ou non, et si c'est récent ou pas comme usage.
+%\dot E = - L_{sd}
+
+\paragraph{Dispersion measure (DM)} Used to determine pulsars distance, it corresponds to the intergrated electron column density along the pulsars photon path, it is defined following \citep{yao_new_2017}
+$$\text{DM}=\int_0^d n_e dl=2.410\times 10^{-16}\times(t_2-t_1)/(\nu_2^{-2}-\nu_1^{-2})\text{ cm}^{-3}\text{pc}$$
+where $t_1$ and $t_2$ are observed pulse arrival times at frequencies $\nu_1$ and $\nu_2$, respectively. 
+%2 \pi m_e c /(e^2 )
+
+By knowing the electron density along a path, we can retrieve a pulsar distance $d$ from this formula. The electron density is previously mesuread using this same formula but for pulsars whose distance are well-known (i.e. using the parallax method with \textsl{Gaia}), and then can be used to know the distance of other closely located pulsars, considering they have a similar electron density along their path. Distance are then used to convert mesuread fluxes into luminosities.
+% ! To covert fluxes into luminosities, distances to the sources are needed
+
+
+% a distance au pulsar est bien connue (comme pour le pulsar du Crabe, ou plus généralement les pulsars dont la distance peut être estimée de façon précise, comme par la donnée de leur parallaxe), la donnée de la mesure de dispersion permet de mesurer directement la densité électronique ; dans le cas où la distance n'est pas connue, on utilise la densité électronique mesurée par les méthodes précédentes dans des situations semblables (localisation proche entre le pulsar étudié et celui dont on connaît la distance, par exemple) pour estimer la distance. 
+
 % * deformation pulse avec passage dans gaz electron
 % * permet d'estimer la distance (mais moins bien et précis que Gaia)
-
-While thermal emissions of X-ray can be derived from the black body emission, the non-thermal one is still subject to debate. In our case, we are particularly interested in studying the correlation between the x-ray luminosity and the spin-down rate of pulsars, as it might help us distinguish differents classes of pulsars. It is a helpful starting point for understanding the diverse subclasses of pulsars and their connections, the intrinsic properties of neutron star formation, evolution, magnetic field, and age (Huang et al. 2022)
+\vspace{1em}
+% ? While thermal emissions of X-ray can be derived from the black body emission, the non-thermal one is still subject to debate. 
+In our case, we are particularly interested in studying the correlation between the x-ray luminosity and the spin-down rate of pulsars, as it might help us distinguish differents classes of pulsars. %It is a helpful starting point for understanding the diverse subclasses of pulsars and their connections, the intrinsic properties of neutron star formation, evolution, magnetic field, and age (Huang et al. 2022)
+% * L_X/E can be seen as conversion efficiency 
+% ? L'article de 2025 dis l'inverse ??
 % ! plus de précision sur pourquoi cette correlation nous interesse en particulier
 
 
 \subsection{A brief history of the correlation study}
-Here, we present the articles considered as the basis of the subject, considering their citation number and being cited in most articles discussed in the next section.
+%Here, we present the articles considered as the basis of the subject, considering their citation number and being cited in most articles discussed in the next section.
+
+
 %– What is the history that gave rise to the modern way of thinking?
 % – Which theories have shaped insights and understandings%
-The $L_X/\dot E$ correlation for isolated rotation-powered pulsars has been studied since the 1988 \citep{seward_pulsars_1988}, and initially was used to derive the characteristics of pulsars hidden in remnants which show evidence for a central compact object or associated nebular emission, but no clear pulsed signal from the neutron star itself. Using the 22 known isolated pulsar (or 9 ? (2021)) from Einstein data at the time, they first established $L_X(0.2 - 4 kev) = 10^{1.39}\dot E$ or $\log L_X = 1.39 \log \dot E - 16.6$. % ! Further searches for pulsation from these objects are of vital importance and, in the X-ray band, probably must await the next major observatories : ROSAT, AXAF, XTE, and XMM.
-The uncertainties mostly came from the distances, as they were not well known at the times. Furthermore, these pulsars were mostly young and powerful, and there were nos disction of the pulsars luminosity from the one of its synchrotron nebula.
+The $L_X/\dot E$ correlation for isolated rotation-powered pulsars has been studied since the 1988 \citep{seward_pulsars_1988}, and initially was used to "derive the characteristics of possibly unseen pulsars in detected supernova remnant". Using 21 known isolated pulsar from the \textsl{Einstein} mission, they first established $$L_X(0.2 - 4 \:\kev) = \dot E^{1.39}$$% * or $\log L_X = 1.39 \log \dot E - 16.6$. 
+% ! Further searches for pulsation from these objects are of vital importance and, in the X-ray band, probably must await the next major observatories : ROSAT, AXAF, XTE, and XMM.
+
+%« Hence this relation must only be seen as an empirical average trend and not suitable for predicting the luminosity of any specific source » ([Li et al., 2008, p. 3](zotero://select/library/items/YLVXKQ3E)) ([pdf](zotero://open-pdf/library/items/8TGPATCH?page=3&annotation=Q53CWMYK))
+
+%The uncertainties mostly came from the distances, as they were not well known at the times, and DM were calculated using an assumed density of 0.3 atom per cm3
+% * Furthermore, these pulsars were mostly young and powerful, and there were no disction of the pulsars luminosity from the one of their assosiated synchrotron nebula.
 % No disticntion between L_X from pwn and psr
 
-% ! Radio pulsars are radiating at the expense of rotational energy
-% * popular model of magnetic braking does not provide an explanation about the physical mechanism which operates in the pulsar magnetosphere and which is responsible for the broad band spectrum from the radio to the Xand gamma-ray bands
-%While later on most of these studies have not been restricted to isolated pulsars,
-The study of this correlation was not limited to isolated pulsars. In 1997, "Although ordinary field pulsars and millisecond pulsars form well-separated populations in the $L_X(\tau)$ diagram they obey the  same $L_X\propto \dot E$ correlation" \citep{becker_x-ray_1997}. "Using the 27 pulsars avaiable from the ROSAT data, they interpreted this correlation as suggesting that most of the observed X-rays are produced by magnetospheric emission originating from the co-rotating magnetosphere". They reported $L_X(0.1 - 2.4 keV) \propto 10^{-3}\dot E$. The data was from 1997. « The strong correlation suggests that the prime energy source of the X-ray emission is the pulsar’s rotational energy ». « Although ordinary field pulsars and millisecond pulsars form well-separated populations in the $L_X(\tau)$ diagram they obey the same $L_x \propto \dot E$ correlation. »
+
+The study of this correlation was not limited to isolated pulsars. In 1997, \citep{becker_x-ray_1997} found from the 26 detected pulsars (including 7 MSPs) available from the July 1997 ROSAT data that even if MSPs and 'normal' pulsars differ in characteristics, they both follow the same $L_X/\dot E$ correlation : $$L_X(0.1 - 2.4\: \kev) \propto \dot E^{1.03\pm0.08}$$ with a correlation coefficient $r = 0.946$.
+% "Although ordinary field pulsars and millisecond pulsars form well-separated populations in the $L_X(\tau)$ diagram they obey the  same $L_X\propto \dot E$ correlation" \citep{becker_x-ray_1997}. "Using the 26 pulsars avaiable from the ROSAT data, they interpreted this correlation as suggesting that most of the observed X-rays are produced by magnetospheric emission originating from the co-rotating magnetosphere". They reported $$L_X(0.1 - 2.4 keV) \propto 10^{-3}\dot E$$. The data was from 1997.
+% * Interprétation de ce résultat : « The strong correlation suggests that the prime energy source of the X-ray emission is the pulsar’s rotational energy ». 
 %It thus appears that the bulk of the X-rays observed in the sample of 27 pulsars originates in the co-rotating magnetosphere, e.g. by Compton scattering processes (Tru ̈mper, Supper & Becker 1997)
-%Knowing the rate of energy loss, É, and the age t some limitations can be placed on the pulsar period if the pulsar evolves in a well-behaved manner as outlined briefly below
 
-%With ROSAT data and on a much larger dataset, which for the  first time included a variety of rotation-powered pulsars at various spin-down ages and energies,  Becker & Tr ̈umper (1997) fitted LX(0.1 − 2.4 keV) ≈ 101.03E
 
-With the increasing amount of data, \citep{possenti_re-examining_2002} studied the empirical relation between the X-ray luminosity (in the 2–10 keV band) and the rate of spin-down energy loss Lsd of a sample of 39 pulsars.
-%Adopting the soft energy spectra  measured by ROSAT and assuming that those spectra continue unchanged up to 10 keV, Possenti  et al. (2002) derived LX(2 − 10 keV) ≈ 101.34E ̇. Results from XMM-Newton and Chandra soon –3showed that the emission in the soft and hard X-ray band is often based on different emission processes and hence have different efficiencies, invalidating the X-ray efficiencies derived by Possenti  et al. (2002)
+Those two previous studies did not include the statistical and systematic uncertainties on $L_X$ resulting from the errors on the X-ray fluxes and on the poorly known distances of most pulsars. Not only that, but their studies were done in the soft X-ray band, when it was later on theorzied that working in the hard X-ray band was preferrable to reduced the contribution from surface thermal emission and correctly explore the nature of the X-ray emission resulting from the rotational energy loss. Soft X-ray fluxes are also more sensitive to the uncertainties due to interstellar absorption \citep{lee_x-ray_2018}.
+
+Those considerations were included in \citep{possenti_re-examining_2002}, which with the increasing amount of data studied the empirical relation between the non-thermal X-ray luminosity and the rate of spin-down energy loss $L_{sd}$ of a sample of 39 pulsars, which explicitly exclude accretion-powered pulsars and AXPs. They found 
+$$L_{X}(2-10 \kev)=(14.36 \pm 1.11)\dot E^{1.34\pm0.03}\quad (\chi^2_\nu=7.0)$$%-15.34$$
+% ! although in their work many X-ray luminosities were simply extrapolated from the ROSAT energy range by assuming that the spectrum in the hard X-ray band would be the same as in the soft band
+The high reduced $\chi^2$ implies that this relation must only be seen as an empirical average trend and not suitable for predicting the luminosity of any specific source, as explained by \citep{li_nonthermal_2008}, due to the observationnal uncertainties.
+
+They also found for ten known MSPs at the time :
+$$\log L_{X,MSP}(2-10\kev) =(1.38\pm0.10)\log \dot E - (16.36\pm3.64)$$
+% * prevents to obtain an acceptable fit of the data with a simple power law dependence  of LX,psr on dE/dt
+% ? A mettre ? : The reduced $\chi^2$ of $7.0$ implies this fit as unacceptable to conclude a result, as a consequence of very uncertain distances.
+% for the constant term for the non-thermal emissions. 
+
+% While this previous study focused on the soft energy band (0.1 - 2.4 keV), it was theorized later on that a harder energy interval seems preferred to explore the nature of the X-ray emission resulting from the rotational energy loss: at energies above ~2 keV the contribution from the neutron star cooling and the spectral fitting uncertainties due to interstellar absorption are reduced. 
 
 %To reduce the contribution from surface thermal emissions, Possenti et al. (2002) considered the energy range of 2 – 10 keV and reported that LX ∝ E ̇ 1.34, with a sample of 39 pulsars, whose PWNe, if present, were not separated from their pulsars. (2021)
+
 % ! bien appuyer sur possenti, et sur la partie MSP d'ailleurs
-While this previous study focused on the soft energy band (0.1 - 2.4 keV), it was theorized later on that a harder energy interval seems preferred to explore the nature of the X-ray emission resulting from the rotational energy loss: at energies above ~2 keV the contribution from the neutron star cooling and the spectral fitting uncertainties due to interstellar absorption are reduced. 
-%At lower energies, ROSAT data instead suggest a slope of m(0.1−2.4) = 1.04 ± 0.09 for 27 sources (BT97)
-%Another relation of LX ∝ E ̇ 1.87 (2 – 10 keV) was reported in Mattana et al. (2009) for 14 TeV-emitting PWNe, some of which are mixed with pulsar’s luminosity. (2021)
-% ? Est ce qu'il sera nécessaire de citer également cette étude parmis les référence 'originelle' ? à voir
 
-% ! To covert fluxes into luminosities, distances to the sources are needed
-
-% ! Soft energy band = 0.1 - 2.4 keV
 % Uncertaines from the distance implies very big chi_2 in fit, which is not very accetpable
 %Previous works have suggested a correlation between the X-ray luminosity Lx and the rotational luminosity Lrot of the radio pulsars. However, none of the obtained regression lines are statistically acceptable due to large scatters.
 
-In 2002, the study of rotation powered pulsars excludes accretion powered pulsars and magnetars (AXPs) from the study, as we will later on. Considering the 39 sources usable, with MSPs, old pulsars, Geminga-like, Vela-like and Crab-like, theyr found $\log L_{X,(2-10)}=1.34\log(\dot E)-15.34$ with a reduced $\chi^2\sim 7.0$ and for the slope $1.34\pm0.03$ and $14.36 \pm 1.11$ for the constant term for the non-thermal emissions. We do have a reduced $chi^2$, as a consequence of very uncertain distances.
+%Adopting the soft energy spectra  measured by ROSAT and assuming that those spectra continue unchanged up to 10 keV, Possenti  et al. (2002) derived LX(2 − 10 keV) ≈ 101.34E ̇. Results from XMM-Newton and Chandra soon showed that the emission in the soft and hard X-ray band is often based on different emission processes and hence have different efficiencies, invalidating the X-ray efficiencies derived by Possenti  et al. (2002)
 
-In 2008, \citep{li_nonthermal_2008} presented a statistical study of the non-thermal X-ray emission of 27 young rotation powered pulsars (RPPs) and 24 pulsar wind nebulae (PWNe) by using the Chandra and the XMM-Newton observations, which with the high spatial resolutions enable us to spatially resolve pulsars from their surrounding PWNe, and does not includes MSPs. It found, accouting for the uncertainties $L_{X,psr(2-10)kev}=10^{-0.8\pm1.3}\dot E^{0.92\pm0.04}(\chi^2=2.6)$. Because of the large scatter this relation must only be seen as an empirical average trend and not suitable for predicting the luminosity of any specific source.
+
+In 2008, \citep{li_nonthermal_2008} presented a statistical study of the non-thermal X-ray emission of 27 young RPPs and 24 pulsar wind nebulae (PWNe) by using the Chandra and the XMM-Newton observations, which with the high spatial resolutions enable to spatially resolve pulsars from their surrounding PWNe, and does not includes MSPs. Since previous studies considered $L_X$ as the total emission due to the pulsars plus PWNe, it studied them separatly, as to test the consistence of their emission properties with proposed models at time. It found, accouting for the uncertainties $$L_{X,psr}(2-10\:\kev)=10^{-0.8\pm1.3}\dot E^{0.92\pm0.04}(\chi^2=2.6)$$
+$$L_{X,pwn}(2-10\:\kev)=10^{-19.6\pm3.0}\dot E^{1.45\pm0.08}(\chi^2=2.7)$$
+% ! We chose here to focus on the pulsar study, as not all PWN are only 22 PWNe are associated with the RPPs, and rotation properties come from the pulsars associated to the PWNe
+% ! 27 mostly young pulsars
+%L_{X,pwn}(2-10\kev)=10^{-19.6\pm3.0}\dot E^{1.45\pm 0.08}(\chi^2=2.7)\end{cases}$$
+
+% TODO -- Déterminer pourquoi ils voulaient étudier ça séparement.
+
+%*« The thermal emission is usually seen in optical to soft x-rays » ([Enoto et al., 2019, p. 12](zotero://select/library/items/L38HC7DI)) ([pdf](zotero://open-pdf/library/items/GJVZK5JU?page=13&annotation=4CYW4BHG))
+
+% TODO Est ce qu'on mentionne à chaque fois le facteur de correlation Pearson ou pas nécessairement ?
 
 % TODO Lire Becker 2009
 
-Later on, those work continued using bigger data catalog.. We present those work below.
+%The results on the X-ray emission properties of pulsars presented in this chapter and elsewhere in the book demonstrate that X-ray astronomy has made great progress in the past several years thanks to telescopes with larger effective areas and greatly improved spatial, temporal and spectral resolutions. But even in view of these great observational capabilities and the intense neutron star research made over a period of more than 40 years there are fundamental questions which still have not be answered. How are the different manifestations of neutron stars related to each other? What are the physical parameters which differentiate AXPs/SGRs/CCOs/XDINs and rotation-powered pulsars? What is the maximal upper bound for the neutron star mass and what is the range of possible neutron star radii? Is there any exotic matter in neutron stars? Do strange stars exist? And what are the physical processes responsible for the pulsars’ broad band emission observed from the infrared to the gamma-ray band? These are just a few of the long standing open questions which can be addressed with the next generation of proposed instruments, eROSITA, Simbol-X and IXO are supposed to bring again a major improvement in sensitivity, making these instruments even more suitable for pulsar and neutron star astronomy
 
+%Another relation of LX ∝ E ̇ 1.87 (2 – 10 keV) was reported in Mattana et al. (2009) for 14 TeV-emitting PWNe, some of which are mixed with pulsar’s luminosity. (2021)
+% ? Est ce qu'il sera nécessaire de citer également cette étude parmis les référence 'originelle' ? à voir
+
+% ! « In those earlier studies, however, LX may be a mixture of thermal and non-thermal components and in some of them may also include contribution from associated pulsar wind nebulae. » ([Chang et al., 2023, p. 2](zotero://select/library/items/9EQVQ7VG)) ([pdf](zotero://open-pdf/library/items/G5LBNL6R?page=2&annotation=DEQJU4WV))
+
+However, both the fits are statistically unacceptable. Later on, those work continued using bigger data catalog, as none of the regression lines are statistically acceptable. We present those work below.
+%TODO Est ce que les luminosité ici était non-thermal uniquement ou combinaison ?
 \section{State of the art}
 
-\subsection{Mesures de flux X des pulsars isolés}
+%\subsection{Mesures de flux X des pulsars isolés}
 
-Accurate estimates of absorption and distance, upon which the derived luminosity depends strongly, are seldom available. % ! a reercire la phrase je l'ai reprise de l'article de 1988
 %%\label{}
 
 \noindent\rule{\linewidth}{0.4pt}
 
-Here we start with the 2021 article \citep{hsiang_power-law_2021}. Considering that we are interested in the properties coming from the rotation of pulsars, we will use the $L_{X,psr}$ fit and not the one from the PWNe, as it is not a pulsating parameters (genre ça provient pas de la pulsation du pulsars). The article finds the correlation 
 
-$$L_{X,psr}\propto \dot E^{1.15\pm0.11}, \quad (\chi_\nu^2=3.43)$$
+Here we start with the 2021 article \citep{hsiang_power-law_2021}. Its goal was to continue the work done in \citep{li_nonthermal_2008}, with a larger set of data from the March 2005 version of the McGill PWN catalog and Li, Lu and Li (2008). Considering that we are interested in the properties coming from the rotation of pulsars, we will use the $L_{X,psr}$ fit and not the one from the PWNe, as it is not a pulsating parameters (genre ça provient pas de la pulsation du pulsars). The article finds the correlation for the non-thermal luminosity
+
+$$L_{X,psr}(0.5-8\kev)\propto \dot E^{1.15\pm0.11}, \quad (\chi_\nu^2=3.43)$$
+$$L_{X,pwn}(0.5-8\kev)\propto \dot E^{1.32\pm0.13}, \quad (\chi_\nu^2=4.38)$$
 % * The reduced chi-squares of these best fits are large and statistically not acceptable. It reflects the fact that there is a huge scatter among data points in those corresponding figures, although correlations seem strong
 
-In \citep{chang_observational_2023}, they found the correlation for non-thermal emissoin 
+In \citep{chang_observational_2023}, while also excluding MSPs, as their non-thermal X-ray emissions may come from a way different from normal pulsars, because of their weak magnetic field, they found the correlation for non-thermal emission with data up to 2008 \citep{li_nonthermal_2008} (which does not disintguish $L_{X,psr}$ and $L_{X,pwn}$):
 
-$$L_P \propto \dot E^{0.88\pm0.06} (\chi^2_\nu = 3.98)$$
+$$L_X(0.5-8\kev) \propto \dot E^{0.88\pm0.06} (\chi^2_\nu = 3.98)$$
 %the reduced chi-squares, χ2  ν , of these best fits are large and statistically not acceptable. We note that, in this work, best fits and χ2  ν are only suggestive, because the quoted uncertainties contain distance uncertainties and are not derived rigorously with proper statistics.
 
-In 2025, with the data set representing the largest sample of X-ray counterparts ever compiled, including 98 normal pulsars (NPs) and 133 millisecond pulsars (MSPs), \citep{xu_new_2025} found we use X-ray luminosities in 0.3–10.0 keV range for XMM-Newton and in 0.5–7.0 keV range for Chandra, further categorizing the data into SX band (<2 keV), hard X-ray (HX) band (>2 keV)
-
+In 2025, with the data set representing the largest sample of X-ray counterparts ever compiled, including 98 normal pulsars (NPs) and 133 millisecond pulsars (MSPs), \citep{xu_new_2025} found by fitting accross the entire X-ray band :
+% potentiellement (0.3-10\kev) 
 $$L_X \propto \dot E ^{0.85 \pm 0.05}$$
 
-which is consistent with the findings of \citep{chang_observational_2023} within the error margins.
+which is consistent with the findings of \citep{chang_observational_2023} within the error margins. While they did this study for the whole X-ray band, they found that the correlation is strong in the hard X-ray band, but no significant correlation has been found for the soft X-ray, likely due to the presence of mixed thermal and nonthermal components. They also fitted for 83 MSPs and 93 NPs separatly :
+
+$$\begin{cases}
+L_{X,MSPs} \propto \dot E^{0.87 \pm 0.17}\\
+L_{X,NPs} \propto \dot E^{0.83 \pm 0.06}
+\end{cases}$$
+
+%Assuming L_X ~ 2*10e-4 dE/dt
+% * « The linear correlation between X-ray luminosity and spindown power strongly supports the magnetic dipole model, in which magnetic dipole radiation extracts rotational kinetic energy and causes the spin-down. » ([Xu 徐 et al., 2025, p. 8](zotero://select/library/items/H6G3YGJC)) ([pdf](zotero://open-pdf/library/items/SLZ73T3C?page=8&annotation=U8G3UNCF))
+
+% \noindent\rule{\linewidth}{0.4pt}
+% ! malheureseemnt, cet article est un peu tout seul et n'est pas comparé avec d'autres articles plus tard, comme il est un peu seul et qu'il n'étudie pas les memes population que les autres article, je pense que la bonne chose a faire est de l'exclure de la synthèse de recherche :(
+% This work can be compared \citep{shibata_x-ray_2016}, where they used a sample from the ANTF exclusing MSPs to exclude potential effect of history of accretion, magnetars and puslar in binary system, so only isolated pulsars and using the flux corrected for the presence of a nebula component, if available :
+
+% $$L_x(0.5-10\kev) = 10^{31.69}(\dot E/10^{35.38})^{1.03\pm0.27}$$
 \noindent\rule{\linewidth}{0.4pt}
 
-\citep{lee_x-ray_2018} studied specifically isolated MSPs, but only 6 are isolated MSPs out of the 35 studied in the sample. Only one correlation is given, and even if they are comparable to other classes of non-isolated, it is not limited to isolated, so debatable
+\citep{lee_x-ray_2018} studied specifically isolated MSPs, but only 6 are isolated MSPs out of the 35 studied in the sample, and only in GF (excluding the pulsars in globular clusters). Only one correlation is given, and even if they are comparable to other classes of non-isolated, it is not limited to isolated, % so debatable
 %« Among all the tested parameters, we found the distributions of Bs of different classes are comparable. On the other hand, the distributions of BLC and E ̇ for RBs are significantly different from those of “Others” (p−value = 0.01 and 0.002 for BLC and E ̇ respectively) and marginally different from that of isolated MSPs (p−value = 0.061 and 0.053 for BLC and E ̇ respectively). Both BLC and E ̇ of RBs are found to be generally higher than those of isolated MSPs and “Others” » ([Lee et al., 2018, p. 5](zotero://select/library/items/SIUC9FL7)) ([pdf](zotero://open-pdf/library/items/6DU6ATXT?page=5&annotation=FWULRYNY))
 
-$$L_X=10^{31.05}(\dot E/10^{35})^{1.31} {erg/s (2-10 keV)}$$
+%$$L_X(2-10\kev)=10^{31.05}(\dot E/10^{35})^{1.31}$$
+$$L_X(2-10\kev)\propto \dot E ^{1.31\pm0.22}$$
 
-where $\dot E$ is the spin-down power in units of $10^{35}$ erg/s.
+
+where $\dot E$ is the spin-down powe r in units of $10^{35}$ erg/s.
 
 In 2022, a study for MSP in GC was done, which found \citep{zhao_census_2022}
 
-In 2023, this study was reconducted by \citep{lee_comparison_2023} but accouting for MSPs in GC and GF. The results was \dots
+In 2023, this study was reconducted by \citep{lee_comparison_2023} but accouting for MSPs in GC and GF. The results was 
 
+For GF (outliers excluded): 
+$$\begin{cases}
+\log L_X(0.3-8)=(0.86\pm0.16)\log \dot E +(1.36\pm5.36)\\
+\log L_X(2-10)=(1.03\pm0.26)\log \dot E +(-4.92\pm8.91)
+\end{cases}$$
+
+For GC (Group C):
+$$\begin{cases}
+\log L_X(0.3-8)=(0.56\pm0.14)\log \dot E +(11.43\pm4.90)\\
+\log L_X(2-10)=(0.77\pm0.18)\log \dot E +(3.96\pm6.17)
+\end{cases}$$
+%L0.3−8 x − E ̇ 0.86±0.16 1.36±5.36 0.94±0.12 -1.30±4.17 0.36±0.09 18.51±3.19 0.56±0.14 11.43±4.90 L2−10 x − E ̇ 1.03±0.26 -4.92±8.91 1.17±0.23 -9.57±7.77 0.48±0.11 13.70±3.87 0.77±0.18 3.96±6.17 » ([Lee et al., 2023, p. 21](zotero://select/library/items/JH5PK97E)) ([pdf](zotero://open-pdf/library/items/XKDUHHJX?page=21&annotation=DYRN8BHB))
+%log Lx = α log E ̇ + β
 
 \noindent\rule{\linewidth}{0.4pt}
 
-Another group studied this correlation : in 2016, \citep{shibata_x-ray_2016}  they used a sample from the ANTF exclusing MSPs and magnetars and puslar in binary system, so only isolated pulsars;
 
-$$L_x(0.5-10keV) = 10^{31.69}(L_{rot}/L0)c_1$$
 
-with $c_1 = 1.03\pm0.27$ and $L_0 = 10^{35.38}$
-
-Also \citep{enoto_observational_2019}
-
+% ? Also \citep{enoto_observational_2019} found for RPPs (excluding magnetars)
 %  !log Lx = c1(log Lrot − 35.38) + 31.69, with c1 = 1.03 ± 0.27
 %\begin{figure}
 %	\centering 
@@ -360,21 +467,29 @@ Also \citep{enoto_observational_2019}
 
 \noindent\rule{\linewidth}{0.4pt}
 
-\citep{malov_x-ray_2019} found
+\citep{malov_x-ray_2019}, which excludes magnetars found
 
+$$\log L_X=(1.17\pm0.08)\log \dot E - 9.46\pm 2.89$$
+%K = 0.97
 
-$$L_X = 3.47 \times 10^{-10}(dE/dt)^{1.17}$$
+It also found that by uniting the range from 0.1 to 10 keV
+$$L_X(0.1-10\kev)=3.47\times 10^{-10} \dot E ^{1.17}$$
 
+% * The last one is believed to be the main source of energy for all processes in the pulsar magnetosphere.
 % ou encore 
 % $$\log L_x = (1.17\pm 0.08)\log dE/dt - 9.46\pm 2.89$$
 % \noindent\rule{\linewidth}{0.4pt}
 
-\citep{prinz_search_2015} found 
+\citep{prinz_search_2015} found (it consider 'the spin down luminosity' $\dot E =-4\pi^2 I\dot P /P^3$)
 
 $$
 L_{X(0.1-2\,\mathrm{keV})}
 =10^{-3.24^{+0.26}_{-0.66}}\;(\dot E)^{0.997^{+0.008}_{-0.001}}
 $$
+
+in 2009, Becker found
+$$L_X(0.1-2\kev)=10^{-3.24^{+0.26}_{-0.66}}\dot E^{0.997^{+0.008}_{-0.001}}$$
+$$L_X(2-10\kev)=10^{-15.72^{+0.7}_{-1.7}}\dot E^{1.336^{+0.036}_{-0.014}}$$
 
 comparing with \citep{possenti_re-examining_2002}
 
@@ -395,6 +510,8 @@ Most of these studies adopted a 40\% uncertainties on distances, using ANTF cata
 
 Most data is old, and the impact from the distances uncertainties is too impactful on data. We propose to use a more adapted DM model and more recent data, and also use Gaia
 
+%Accurate estimates of absorption and distance, upon which the derived luminosity depends strongly, are seldom available. % ! a reercire la phrase je l'ai reprise de l'article de 1988
+%The distances are usually not well constrained, thus the distance uncertainty may dominate the luminosity uncertainty, with a reported 0.3L_X error for a 40% uncertain considered on distance
 Considering data from the ANTF being updated since 2024 (citer les versions ?), we now have (nombre) new potential data to study
 
 For our upcoming study, we can base ourself on the 2025 article to compare our results.

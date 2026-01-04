@@ -370,6 +370,7 @@ $$L_{X,pwn}(2-10\:\kev)=10^{-19.6\pm3.0}\dot E^{1.45\pm0.08}(\chi^2=2.7)$$
 % TODO -- Déterminer pourquoi ils voulaient étudier ça séparement.
 
 %*« The thermal emission is usually seen in optical to soft x-rays » ([Enoto et al., 2019, p. 12](zotero://select/library/items/L38HC7DI)) ([pdf](zotero://open-pdf/library/items/GJVZK5JU?page=13&annotation=4CYW4BHG))
+%*« In general, the thermal component primarily contributes to the SXs, while the nonthermal component dominates HXs and could also contribute significantly to the SXs. » ([Xu 徐 et al., 2025, p. 5](zotero://select/library/items/H6G3YGJC)) ([pdf](zotero://open-pdf/library/items/SLZ73T3C?page=5&annotation=HRXYZYLA))
 
 % TODO Est ce qu'on mentionne à chaque fois le facteur de correlation Pearson ou pas nécessairement ?
 
@@ -383,7 +384,6 @@ $$L_{X,pwn}(2-10\:\kev)=10^{-19.6\pm3.0}\dot E^{1.45\pm0.08}(\chi^2=2.7)$$
 % ! « In those earlier studies, however, LX may be a mixture of thermal and non-thermal components and in some of them may also include contribution from associated pulsar wind nebulae. » ([Chang et al., 2023, p. 2](zotero://select/library/items/9EQVQ7VG)) ([pdf](zotero://open-pdf/library/items/G5LBNL6R?page=2&annotation=DEQJU4WV))
 
 However, both the fits are statistically unacceptable. Later on, those work continued using bigger data catalog, as none of the regression lines are statistically acceptable. We present those work below.
-%TODO Est ce que les luminosité ici était non-thermal uniquement ou combinaison ?
 \section{State of the art}
 
 %\subsection{Mesures de flux X des pulsars isolés}
@@ -393,12 +393,12 @@ However, both the fits are statistically unacceptable. Later on, those work cont
 \noindent\rule{\linewidth}{0.4pt}
 
 
-Here we start with the 2021 article \citep{hsiang_power-law_2021}. Its goal was to continue the work done in \citep{li_nonthermal_2008}, with a larger set of data from the March 2005 version of the McGill PWN catalog and Li, Lu and Li (2008). Considering that we are interested in the properties coming from the rotation of pulsars, we will use the $L_{X,psr}$ fit and not the one from the PWNe, as it is not a pulsating parameters (genre ça provient pas de la pulsation du pulsars). The article finds the correlation for the non-thermal luminosity
+Here we start with the 2021 article \citep{hsiang_power-law_2021}. Its goal was to continue the work done in \citep{li_nonthermal_2008}, with a larger set of data from the March 2005 version of the McGill PWN catalog and Li, Lu and Li (2008). The article finds the correlation for the non-thermal luminosity
 
 $$L_{X,psr}(0.5-8\kev)\propto \dot E^{1.15\pm0.11}, \quad (\chi_\nu^2=3.43)$$
 $$L_{X,pwn}(0.5-8\kev)\propto \dot E^{1.32\pm0.13}, \quad (\chi_\nu^2=4.38)$$
 % * The reduced chi-squares of these best fits are large and statistically not acceptable. It reflects the fact that there is a huge scatter among data points in those corresponding figures, although correlations seem strong
-
+%Considering that we are interested in the properties coming from the rotation of pulsars, we will use the $L_{X,psr}$ fit and not the one from the PWNe, as it is not a pulsating parameters (genre ça provient pas de la pulsation du pulsars).
 In \citep{chang_observational_2023}, while also excluding MSPs, as their non-thermal X-ray emissions may come from a way different from normal pulsars, because of their weak magnetic field, they found the correlation for non-thermal emission with data up to 2008 \citep{li_nonthermal_2008} (which does not disintguish $L_{X,psr}$ and $L_{X,pwn}$):
 
 $$L_X(0.5-8\kev) \propto \dot E^{0.88\pm0.06} (\chi^2_\nu = 3.98)$$
@@ -425,7 +425,7 @@ L_{X,NPs} \propto \dot E^{0.83 \pm 0.06}
 % $$L_x(0.5-10\kev) = 10^{31.69}(\dot E/10^{35.38})^{1.03\pm0.27}$$
 \noindent\rule{\linewidth}{0.4pt}
 
-\citep{lee_x-ray_2018} studied specifically isolated MSPs, but only 6 are isolated MSPs out of the 35 studied in the sample, and only in GF (excluding the pulsars in globular clusters). Only one correlation is given, and even if they are comparable to other classes of non-isolated, it is not limited to isolated, % so debatable
+\citep{lee_x-ray_2018} studied specifically isolated MSPs, but only 6 are isolated MSPs out of the 35 studied in the sample, and only in GF (excluding the pulsars in globular clusters), considering MSPs as RPPs with period $P < 20 ms$. Only one correlation is given, and even if they are comparable to other classes of non-isolated, it is not limited to isolated, % so debatable
 %« Among all the tested parameters, we found the distributions of Bs of different classes are comparable. On the other hand, the distributions of BLC and E ̇ for RBs are significantly different from those of “Others” (p−value = 0.01 and 0.002 for BLC and E ̇ respectively) and marginally different from that of isolated MSPs (p−value = 0.061 and 0.053 for BLC and E ̇ respectively). Both BLC and E ̇ of RBs are found to be generally higher than those of isolated MSPs and “Others” » ([Lee et al., 2018, p. 5](zotero://select/library/items/SIUC9FL7)) ([pdf](zotero://open-pdf/library/items/6DU6ATXT?page=5&annotation=FWULRYNY))
 
 %$$L_X(2-10\kev)=10^{31.05}(\dot E/10^{35})^{1.31}$$
@@ -465,7 +465,6 @@ $$\begin{cases}
 %	\label{fig_mom0}%
 %\end{figure}
 
-\noindent\rule{\linewidth}{0.4pt}
 
 \citep{malov_x-ray_2019}, which excludes magnetars found
 
@@ -501,46 +500,45 @@ comparing with \citep{possenti_re-examining_2002}
 
 \subsection{Distances defined in previous studies}
 
-Most of these studies adopted a 40\% uncertainties on distances, using ANTF catalog.
+While the data for some studies could consider more accurate pulsars distance $d$ using parallax measurement or data from calculation with associated supernova remnants \citep{possenti_re-examining_2002}\citep{lee_x-ray_2018}, most of these studies adopted a 40\% uncertainties on distances derived from DM \citep{xu_new_2025}, \citep{lee_comparison_2023}, \citep{hsiang_power-law_2021}, \citep{li_nonthermal_2008}, \citep{possenti_re-examining_2002}, \citep{lee_x-ray_2018}, \citep{lee_comparison_2023}. The most recent study from 2025 considered distances of most pulsars as are acquired from he  ATNF catalog \citep{manchester_australia_2005}, using the YMW16 electron distribution model, which still adopt a 40\% uncertainties. \citep{malov_x-ray_2019} used distance and uncertainties from \citep{prinz_search_2015} and \citep{possenti_re-examining_2002}.
 
+\citep{prinz_search_2015} estimated distance estimate based on the work by Verbiest et al. (2012), where they present a detailed analysis of all measured distances to pulsars. For all other sources we used the NE2001 model of Cordes and Lazio (2002) to transform the measured DM to a distance. We apply a distance error of 20\% to 120\% depending on their Galactic coordinates.
+
+\subsection{Dates from used catalogs}
+
+Most of these articles used older, stable data from catalog. \citep{hsiang_power-law_2021} used the March 2005 version of 'The Pulsar Wind Nebula Catalog' and Chandra and the XMM-Newton data from \citep{li_nonthermal_2008}. While the \citep{lee_comparison_2023} also reused \citep{li_nonthermal_2008}, their most recent data are considered as from the table of \citep{potekhin_thermal_2020}. The most recent analysis from 2005, used the ATNF pulsar catalog v2.3.0, dating from 2024. %the Chandra Source Catalog  Release 2.010
+
+\citep{lee_x-ray_2018} used April 2017 version of ATNF pulsar catalog, and successing \citep{lee_comparison_2023} 204 radio GC MSP : P. Freire for GC MSPs and online catalogue West Virginia university for GF MSP, dating as latest possible from 2023.
+
+\citep{prinz_search_2015} sued ATNF pulsar database (version 1.54) with archival XMM-Newton and  Chandra observations publicly released by July 1st 2016, and \citep{malov_x-ray_2019} "used data from Possenti et al. (2002) and Prinz and Becker (2015) for X-ray loud pulsars only", so probably also July 2016 and data as of 2002.
+
+In the table in annex, we summarize for each article cited the type of data used, its date, pulsars types studied, date of most recent data used and distance considered
+
+% TODO Faire le tableau qui résume tout 
 
 \section{Conclusion}
 %%\label{}
 % !  conclusion: une description du travail attendu au 2eme semestre
 
-Most data is old, and the impact from the distances uncertainties is too impactful on data. We propose to use a more adapted DM model and more recent data, and also use Gaia
+Most data is old, and the impact from the distances uncertainties is too impactful on data. Most sources used DM and a 40\% associated uncertainties, which results in a error $\sim 0.3$ in $\log L_X$ \citep{possenti_re-examining_2002}.
+
+
+%We propose to use a more adapted DM model and more recent data, and also use Gaia
 
 %Accurate estimates of absorption and distance, upon which the derived luminosity depends strongly, are seldom available. % ! a reercire la phrase je l'ai reprise de l'article de 1988
 %The distances are usually not well constrained, thus the distance uncertainty may dominate the luminosity uncertainty, with a reported 0.3L_X error for a 40% uncertain considered on distance
-Considering data from the ANTF being updated since 2024 (citer les versions ?), we now have (nombre) new potential data to study
 
-For our upcoming study, we can base ourself on the 2025 article to compare our results.
 
-We can also observe a lack of study of isolated pulsars in recent studies, \dots
-
-% lanquantié de pulsar augment de mainre exponentiel : eux c'était 2002 et 2015 donc on a 10 an de donné en plus  + on conanti pas eur estimation de distacne
-
-% * « The difference in the slopes may be due to the choice of energy bands and of the components: thermal, non thermal and pulsar wind nebula (PWN) » ([Shibata et al., 2016, p. 2](zotero://select/library/items/47A4FLM9)) ([pdf](zotero://open-pdf/library/items/YZAGEIUV?page=2&annotation=G7KTLFLJ))
-
-% \begin{table}
-% \begin{tabular}{l c c c} 
-%  \hline
-%  Source & RA (J2000) & DEC (J2000) & $V_{\rm sys}$ \\ 
-%         & [h,m,s]    & [o,','']    & \kms          \\
-%  \hline
-%  NGC\,253 & 	00:47:33.120 & -25:17:17.59 & $235 \pm 1$ \\ 
-%  M\,82 & 09:55:52.725, & +69:40:45.78 & $269 \pm 2$ 	 \\ 
-%  \hline
-% \end{tabular}
-% \caption{Random table with galaxies coordinates and velocities, Number the tables consecutively in
-% accordance with their appearance in the text and place any table notes below the table body. Please avoid using vertical rules and shading in table cells.
-% }
-% \label{Table1}
-% \end{table}
+We can also observe a lack of study of isolated pulsars in recent studies, 
 
 
 \section{Discussion and future work}
 %%\label{}
+% * We propose to use a more adapted DM model and more recent data, and also use Gaia
+
+% * Considering data from the ANTF being updated since 2024 (citer les versions ?), we now have (nombre) new potential data to study
+
+For our upcoming study, we can base ourself on the 2025 article to compare our results.
 The aim of our work is to update and 
 For this, we will first etablish an updated catalogue of isolated pulsars using existing databases coming from differents space mission in X ray such as Chandra, XMM-Newton, Swift/XRT et SRG/eRosita. Then after extracting their X-ray flux from them, we will determine their distance as precisely as possible using paralaxes from Gaia mission and dispersion mesurement establisehd from radio observations. Using those two parameters, we will try to establish if a correlation exists between the luminosity in X-ray $L_X$ of those source and their spin-down power $\dot E$. We note that with the Gaia catalog having been released in ???, it was not common practice to use it up to (?)
 
@@ -573,11 +571,27 @@ We do have to consider the low brightnest of MSPs in optical, impacting the Gaia
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
-% \appendix
+\appendix
 
-% \section{Appendix title 1}
+\section{Appendix title 1}
 % %% \label{}
 
+\begin{table*}[h]
+    \caption{Census of most recent articles and associated data}
+    \begin{tabular*}{\linewidth}{l @{\extracolsep{\fill}}c c c c}
+        Articles&Pulsars type/excluded&luminosity type&Year of most recent data&Distance used and uncertainties\\
+        \citep{xu_new_2025}&RPP (MSPs in GC and NPs with PWNe)&T+NT(0.3-10) &2024&0.00\\
+        \citep{chang_observational_2023}&RPPs (PWNe w/ assoc. pulsar)/MSPs&NT (0.5-8)&2020&0.00\\
+        \citep{hsiang_power-law_2021} &Pulsar w/ detect. X-ray/MSPs&NT&2008&0.00\\
+        \citep{lee_comparison_2023}&204 MSPs in GC and GF&T+NT&2023&0.00\\
+        \citep{lee_x-ray_2018}&47 MSPs (6 Iso) in GF/MSPs in GC&T+NT&2017&0.00\\
+        \citep{malov_x-ray_2019}&RPPs (impl. Iso)/magnetars&NT&2016&0.00\\
+        \citep{prinz_search_2015}& RPPs&NT&2016&0.00\
+    \end{tabular*}
+\end{table*}
+%TODO Est ce que les luminosité ici était non-thermal uniquement ou combinaison ?
+
+% TODO ajouté le nombre de pulsars considéré ?
 % \section{Appendix title 2}
 %% \label{}
 
@@ -592,7 +606,21 @@ We do have to consider the low brightnest of MSPs in optical, impacting the Gaia
 %\bibliographystyle{elsarticle-num} % We choose the "plain" reference style
 %\bibliography{bibl}
 %elsarticle-harv
-
+% \begin{table}
+% \begin{tabular}{l c c c} 
+%  \hline
+%  Source & RA (J2000) & DEC (J2000) & $V_{\rm sys}$ \\ 
+%         & [h,m,s]    & [o,','']    & \kms          \\
+%  \hline
+%  NGC\,253 & 	00:47:33.120 & -25:17:17.59 & $235 \pm 1$ \\ 
+%  M\,82 & 09:55:52.725, & +69:40:45.78 & $269 \pm 2$ 	 \\ 
+%  \hline
+% \end{tabular}
+% \caption{Random table with galaxies coordinates and velocities, Number the tables consecutively in
+% accordance with their appearance in the text and place any table notes below the table body. Please avoid using vertical rules and shading in table cells.
+% }
+% \label{Table1}
+% \end{table}
 \end{document}
 
 \endinput
